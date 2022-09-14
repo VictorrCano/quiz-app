@@ -51,75 +51,93 @@ class _MyAppState extends State<MyApp> {
           title: Text('Quiz App'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.center,
-                color: Colors.grey,
-                height: 30,
-                width: 400,
-                child: Text(
-                  questionList[_questionIndex].question,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(height: 20),
-              answerBox(questionList[_questionIndex].ans1),
-              const SizedBox(height: 10),
-              answerBox(questionList[_questionIndex].ans2),
-              const SizedBox(height: 10),
-              answerBox(questionList[_questionIndex].ans3),
-              const SizedBox(height: 10),
-              answerBox(questionList[_questionIndex].ans4),
-              const SizedBox(height: 100),
-              Container(
-                alignment: Alignment.center,
-                color: Colors.grey,
-                height: 30,
-                width: 300,
-                child: const Text(
-                  'This is your answer',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.center,
-                color: answerColor,
-                height: 50,
-                width: 300,
-                child: Text(
-                  _answer,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(height: 70),
-              Container(
-                //color: Colors.blue,
-                height: 50,
-                width: 300,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
+          child: _questionIndex < _quizEndIndex
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.center,
+                      color: Colors.grey,
+                      height: 30,
+                      width: 400,
+                      child: Text(
+                        questionList[_questionIndex].question,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
-                  ),
-                  child: Text('Next Question'),
-                  onPressed: () {
-                    setState(() {
-                      if (_questionIndex + 1 > _quizEndIndex) {
-                        _questionIndex = 0;
-                      } else {
-                        _questionIndex++;
-                      }
-                    });
-                  },
+                    const SizedBox(height: 20),
+                    answerBox(questionList[_questionIndex].ans1),
+                    const SizedBox(height: 10),
+                    answerBox(questionList[_questionIndex].ans2),
+                    const SizedBox(height: 10),
+                    answerBox(questionList[_questionIndex].ans3),
+                    const SizedBox(height: 10),
+                    answerBox(questionList[_questionIndex].ans4),
+                    const SizedBox(height: 100),
+                    Container(
+                      alignment: Alignment.center,
+                      color: Colors.grey,
+                      height: 30,
+                      width: 300,
+                      child: const Text(
+                        'This is your answer',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.center,
+                      color: answerColor,
+                      height: 50,
+                      width: 300,
+                      child: Text(
+                        _answer,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 70),
+                    Container(
+                      //color: Colors.blue,
+                      height: 50,
+                      width: 300,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white,
+                          ),
+                        ),
+                        child: Text('Next Question'),
+                        onPressed: () {
+                          setState(() {
+                            if (_questionIndex + 1 > _quizEndIndex) {
+                              _questionIndex = 0;
+                            } else {
+                              _questionIndex++;
+                            }
+
+                            if (_questionIndex == _quizEndIndex) {
+                              _answer = ' ';
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              : Container(
+                  height: 100,
+                  width: 300,
+                  color: Colors.blue,
+                  //padding: 15,
+                  child: Text(
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        height: 2.0,
+                      ),
+                      'Final Score: \n $_correctAnswers correct answers \n $_incorrectAnswers incorrect answers'),
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
