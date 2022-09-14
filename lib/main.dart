@@ -108,7 +108,13 @@ class _MyAppState extends State<MyApp> {
                   ),
                   child: Text('Next Question'),
                   onPressed: () {
-                    setState(() => _questionIndex++);
+                    setState(() {
+                      if (_questionIndex + 1 > _quizEndIndex) {
+                        _questionIndex = 0;
+                      } else {
+                        _questionIndex++;
+                      }
+                    });
                   },
                 ),
               ),
