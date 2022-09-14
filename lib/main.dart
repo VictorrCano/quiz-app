@@ -9,16 +9,16 @@ void main() {
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  int quizEndIndex = 2;
-  int questionIndex = 0;
-  int correctAnswers = 0;
-  int incorrectAnswers = 0;
-  String answer = '';
+class _MyAppState extends State<MyApp> {
+  final int _quizEndIndex = 2;
+  int _questionIndex = 0;
+  int _correctAnswers = 0;
+  int _incorrectAnswers = 0;
+  String _answer = '';
   List<QuestionSet> questionList = [];
   var answerColor = Colors.white;
 
@@ -36,9 +36,9 @@ class MyAppState extends State<MyApp> {
     questionList.add(QuestionSet(
         'You have finished the quiz!',
         'Your number of correct answers',
-        correctAnswers.toString(),
+        _correctAnswers.toString(),
         'Your number of incorrect answers',
-        incorrectAnswers.toString(),
+        _incorrectAnswers.toString(),
         ''));
   }
 
@@ -61,18 +61,18 @@ class MyAppState extends State<MyApp> {
                 height: 40,
                 width: 400,
                 child: Text(
-                  questionList[questionIndex].question,
+                  questionList[_questionIndex].question,
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               const SizedBox(height: 20),
-              answerBox(questionList[questionIndex].ans1),
+              answerBox(questionList[_questionIndex].ans1),
               const SizedBox(height: 10),
-              answerBox(questionList[questionIndex].ans2),
+              answerBox(questionList[_questionIndex].ans2),
               const SizedBox(height: 10),
-              answerBox(questionList[questionIndex].ans3),
+              answerBox(questionList[_questionIndex].ans3),
               const SizedBox(height: 10),
-              answerBox(questionList[questionIndex].ans4),
+              answerBox(questionList[_questionIndex].ans4),
               const SizedBox(height: 100),
               Container(
                 alignment: Alignment.center,
@@ -91,7 +91,7 @@ class MyAppState extends State<MyApp> {
                 height: 50,
                 width: 300,
                 child: Text(
-                  answer,
+                  _answer,
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -112,7 +112,7 @@ class MyAppState extends State<MyApp> {
                     ),
                     child: Text('Next Question'),
                     onPressed: () {
-                      setState(() => questionIndex++);
+                      setState(() => _questionIndex++);
                     },
                   ),
                 ),
@@ -143,19 +143,19 @@ class MyAppState extends State<MyApp> {
           child: Text(name),
           onPressed: () {
             setState(() {
-              answer = name;
-              if (name == questionList[questionIndex].correctAns) {
+              _answer = name;
+              if (name == questionList[_questionIndex].correctAns) {
                 print('Correct!');
                 answerColor = Colors.lightGreen;
-                correctAnswers++;
-                questionList[quizEndIndex].ans2 = correctAnswers.toString();
+                _correctAnswers++;
+                questionList[_quizEndIndex].ans2 = _correctAnswers.toString();
                 fillList();
                 //print(questionList[quizEndIndex].ans2.toString());
               } else {
                 print('False, try again.');
                 answerColor = Colors.red;
-                incorrectAnswers++;
-                questionList[quizEndIndex].ans4 = incorrectAnswers.toString();
+                _incorrectAnswers++;
+                questionList[_quizEndIndex].ans4 = _incorrectAnswers.toString();
                 fillList();
                 //print(questionList[quizEndIndex].ans4.toString());
               }
