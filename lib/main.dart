@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         _correctAnswers.toString(),
         'Your number of incorrect answers',
         _incorrectAnswers.toString(),
-        ''));
+        ' '));
   }
 
   @override
@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 alignment: Alignment.center,
                 color: Colors.grey,
-                height: 40,
+                height: 30,
                 width: 400,
                 child: Text(
                   questionList[_questionIndex].question,
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
               Container(
                 alignment: Alignment.center,
                 color: Colors.grey,
-                height: 40,
+                height: 30,
                 width: 300,
                 child: const Text(
                   'This is your answer',
@@ -97,24 +97,19 @@ class _MyAppState extends State<MyApp> {
               ),
               const SizedBox(height: 70),
               Container(
-                alignment: Alignment.center,
-                color: Colors.blue,
+                //color: Colors.blue,
                 height: 50,
                 width: 300,
-                child: SizedBox(
-                  height: double.infinity, //<- match height of parent (50)
-                  width: double.infinity, //<- match width of parent (300)
-                  child: TextButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.white,
-                      ),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white,
                     ),
-                    child: Text('Next Question'),
-                    onPressed: () {
-                      setState(() => _questionIndex++);
-                    },
                   ),
+                  child: Text('Next Question'),
+                  onPressed: () {
+                    setState(() => _questionIndex++);
+                  },
                 ),
               ),
             ],
@@ -127,41 +122,36 @@ class _MyAppState extends State<MyApp> {
   Widget answerBox(String name) {
     //fillList();
     return Container(
-      alignment: Alignment.center,
-      color: Colors.blue,
+      //alignment: Alignment.center,
       height: 50,
       width: 300,
-      child: SizedBox(
-        height: double.infinity, //<- match height of parent (50)
-        width: double.infinity, //<- match width of parent (300)
-        child: TextButton(
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(
-              Colors.white,
-            ),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Colors.white,
           ),
-          child: Text(name),
-          onPressed: () {
-            setState(() {
-              _answer = name;
-              if (name == questionList[_questionIndex].correctAns) {
-                print('Correct!');
-                answerColor = Colors.lightGreen;
-                _correctAnswers++;
-                questionList[_quizEndIndex].ans2 = _correctAnswers.toString();
-                fillList();
-                //print(questionList[quizEndIndex].ans2.toString());
-              } else {
-                print('False, try again.');
-                answerColor = Colors.red;
-                _incorrectAnswers++;
-                questionList[_quizEndIndex].ans4 = _incorrectAnswers.toString();
-                fillList();
-                //print(questionList[quizEndIndex].ans4.toString());
-              }
-            });
-          },
         ),
+        child: Text(name),
+        onPressed: () {
+          setState(() {
+            _answer = name;
+            if (name == questionList[_questionIndex].correctAns) {
+              print('Correct!');
+              answerColor = Colors.lightGreen;
+              _correctAnswers++;
+              questionList[_quizEndIndex].ans2 = _correctAnswers.toString();
+              fillList();
+              //print(questionList[quizEndIndex].ans2.toString());
+            } else {
+              print('False, try again.');
+              answerColor = Colors.red;
+              _incorrectAnswers++;
+              questionList[_quizEndIndex].ans4 = _incorrectAnswers.toString();
+              fillList();
+              //print(questionList[quizEndIndex].ans4.toString());
+            }
+          });
+        },
       ),
     );
   }
