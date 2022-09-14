@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  int quizEndIndex = 2;
   int questionIndex = 0;
   int correctAnswers = 0;
   int incorrectAnswers = 0;
@@ -124,7 +125,7 @@ class MyAppState extends State<MyApp> {
   }
 
   Widget answerBox(String name) {
-    fillList();
+    //fillList();
     return Container(
       alignment: Alignment.center,
       color: Colors.blue,
@@ -147,16 +148,16 @@ class MyAppState extends State<MyApp> {
                 print('Correct!');
                 answerColor = Colors.lightGreen;
                 correctAnswers++;
-                questionList[questionList.length - 1].ans2 =
-                    correctAnswers.toString();
-                print(questionList[questionList.length - 1].ans2.toString());
+                questionList[quizEndIndex].ans2 = correctAnswers.toString();
+                fillList();
+                //print(questionList[quizEndIndex].ans2.toString());
               } else {
                 print('False, try again.');
                 answerColor = Colors.red;
                 incorrectAnswers++;
-                questionList[questionList.length - 1].ans4 =
-                    incorrectAnswers.toString();
-                print(questionList[questionList.length - 1].ans4.toString());
+                questionList[quizEndIndex].ans4 = incorrectAnswers.toString();
+                fillList();
+                //print(questionList[quizEndIndex].ans4.toString());
               }
             });
           },
